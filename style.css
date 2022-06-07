@@ -1,0 +1,9 @@
+#search-result{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#result-box{
+    margin: 5px
+}
