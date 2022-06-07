@@ -34,20 +34,32 @@ searchBtn.addEventListener('click', (event) => {
     })
 })
 
+searchResult.addEventListener("click", function(event){
+    // console.log(event.target)
+    // console.log(event.target.parentElement.classList)
+    if(event.target.parentElement.classList.contains('card-body')){
+        // console.log(event.target.parentElement.children[1].innerHTML)
+        let songUrl = event.target.parentElement.children[2].innerHTML
+        let artist = event.target.parentElement.children[1].innerHTML
+        let song = event.target.parentElement.children[0].innerHTML
+        previewSong(songUrl, artist, song)
+    }
+})
+
 //defualt Song Preview
-// function previewSong(searchData){
-//     let songName = searchData.results[45].trackName;
-//     let artistName = searchData.results[45].artistName;
-//     let source = searchData.results[45].previewUrl;
+function previewSong(previewUrl, artist, song){
+    let songName = song;
+    let artistName = artist;
+    let source = previewUrl;
 
-//     let previewSongSource = document.createElement("source");
-//     previewSongSource.src = source;
-//     songPreview.appendChild(previewSongSource);
+    let previewSongSource = document.createElement("source");
+    previewSongSource.src = source;
+    songPreview.appendChild(previewSongSource);
 
-//     let newSong = document.createElement("h1");
-//     newSong.innerText = `${songName} By ${artistName}`;
-//     songSelection.appendChild(newSong);
-// }
+    let newSong = document.createElement("h1");
+    newSong.innerText = `${songName} By ${artistName}`;
+    songSelection.appendChild(newSong);
+}
 
 //Organized Search Grid
 function searchgrid(searchData){
@@ -79,6 +91,11 @@ function searchgrid(searchData){
         artist.classList.add("card-text");
         artist.innerText = result.artistName;
         cardBody.appendChild(artist);
+        //Song URL
+        let songUrl = document.createElement("div");
+        songUrl.classList.add("audio-source")
+        songUrl.innerText = result.previewUrl;
+        cardBody.appendChild(songUrl)
     }
 }
 
