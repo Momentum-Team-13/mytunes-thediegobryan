@@ -1,9 +1,13 @@
 #search-result{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #result-box{
     margin: 5px
 }
+
+/* .card-body{
+    background-color: red;
+} */

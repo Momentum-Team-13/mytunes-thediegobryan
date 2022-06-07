@@ -1,36 +1,63 @@
-let url = "https://itunes.apple.com/search?term=shakira";
 
 let songSelection = document.querySelector('#song-preview');
 let songPreview = document.querySelector('#song-preview-audio')
 let searchResult = document.querySelector('#search-result')
+let searchInput = document.querySelector('#song-search-input')
+let searchBtn = document.querySelector('#search-btn')
+
+
 
 // TO DO LIST
 // ========================================
 // -Need to add click event listener to each search result element like I did for each calculator GamepadButton. This function will tell the page to change the song preview to the clicked song.
 //
-//- for the search bar, my guess is that i'll us the searchbox.innerText and add that to the fetch url when button is clicked. I think an event listener will make the button work?
 
+searchBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const userInput = searchInput.value
+    console.log(userInput)
+    console.log(event)
 
-function previewSong(searchData){
-    let songName = searchData.results[45].trackName;
-    let artistName = searchData.results[45].artistName;
-    let source = searchData.results[45].previewUrl;
+    let url = `https://itunes.apple.com/search?term=${userInput}`;
 
-    let previewSongSource = document.createElement("source");
-    previewSongSource.src = source;
-    songPreview.appendChild(previewSongSource);
+    fetch(url, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    })
+    .then(function (response) {
+    return response.json()
+    })
+    .then(function (data) {
+        console.log('You have been successfully subscribed', data.results)
+        // previewSong(data)
+        searchgrid(data.results)
+    })
+})
 
-    let newSong = document.createElement("h1");
-    newSong.innerText = `${songName} By ${artistName}`;
-    songSelection.appendChild(newSong);
-}
+//defualt Song Preview
+// function previewSong(searchData){
+//     let songName = searchData.results[45].trackName;
+//     let artistName = searchData.results[45].artistName;
+//     let source = searchData.results[45].previewUrl;
 
+//     let previewSongSource = document.createElement("source");
+//     previewSongSource.src = source;
+//     songPreview.appendChild(previewSongSource);
+
+//     let newSong = document.createElement("h1");
+//     newSong.innerText = `${songName} By ${artistName}`;
+//     songSelection.appendChild(newSong);
+// }
+
+//Organized Search Grid
 function searchgrid(searchData){
+    searchResult.innerHTML = '';
+
     for(result of searchData){
         //Container Box
         let resultBox = document.createElement("div")
         resultBox.classList.add("card")
-        resultBox.style.width = "12rem";
+        resultBox.style.width = "200px";
         resultBox.id = "result-box";
         searchResult.appendChild(resultBox)
         //Img Thumb
@@ -56,15 +83,17 @@ function searchgrid(searchData){
 }
 
 
-fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    })
-    .then(function (response) {
-    return response.json()
-    })
-    .then(function (data) {
-    console.log('You have been successfully subscribed', data.results)
-    previewSong(data)
-    searchgrid(data.results)
-    })
+// let url = `https://itunes.apple.com/search?term=shakira`;
+
+//     fetch(url, {
+//     method: 'GET',
+//     headers: { 'Content-Type': 'application/json' },
+//     })
+//     .then(function (response) {
+//     return response.json()
+//     })
+//     .then(function (data) {
+//         console.log('You have been successfully subscribed', data.results)
+//         // previewSong(data)
+//         searchgrid(data.results)
+//     })
