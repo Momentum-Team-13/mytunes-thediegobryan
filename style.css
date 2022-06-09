@@ -1,16 +1,50 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #272727;
+    color: white
+}
+.top-shelf{
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: auto;
+    margin: 20px;
+    justify-content: space-around;
+}
+@media only screen and (max-width: 600px) {
+    .top-shelf{
+    flex-direction: column;
+    width: 75%;
+    height:auto;
+    margin: 50px;
+    justify-content: center;
+    align-items: center;
+    }
+}
+
+.result-section{
+    width: 100%;
+    background-color: #FED766;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #search-result{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 1200px;
 }
 
 #result-box{
-    margin: 5px
+    margin: 10px;
+    background-color: #EFF1F3;
+    color:black;
+    border: 1px solid black;
 }
-
-/* .card-body{
-    background-color: red;
-} */
 
 .audio-source{
     display: none;

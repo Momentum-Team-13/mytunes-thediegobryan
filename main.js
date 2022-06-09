@@ -15,10 +15,7 @@ let searchBtn = document.querySelector('#search-btn')
 searchBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const userInput = searchInput.value
-    console.log(userInput)
-    console.log(event)
-
-    let url = `https://itunes.apple.com/search?term=${userInput}`;
+    let url = `https://itunes.apple.com/search?limit=50&media=music&term=${userInput}`;
 
     fetch(url, {
     method: 'GET',
@@ -28,36 +25,24 @@ searchBtn.addEventListener('click', (event) => {
     return response.json()
     })
     .then(function (data) {
-        console.log('You have been successfully subscribed', data.results)
-        // previewSong(data)
         searchgrid(data.results)
     })
 })
 
 searchResult.addEventListener("click", function(event){
-    // console.log(event.target)
-    // console.log(event.target.parentElement.classList)
     if(event.target.parentElement.classList.contains('card-body')){
-        // console.log(event.target.parentElement.children[1].innerHTML)
-        let songUrl = event.target.parentElement.children[2].innerHTML
+        songPreview.src = event.target.parentElement.children[2].innerHTML
         let artist = event.target.parentElement.children[1].innerHTML
         let song = event.target.parentElement.children[0].innerHTML
-        previewSong(songUrl, artist, song)
+        previewSong(artist, song)
     }
 })
 
 //defualt Song Preview
-function previewSong(previewUrl, artist, song){
-    let songName = song;
-    let artistName = artist;
-    let source = previewUrl;
-
-    let previewSongSource = document.createElement("source");
-    previewSongSource.src = source;
-    songPreview.appendChild(previewSongSource);
-
-    let newSong = document.createElement("h1");
-    newSong.innerText = `${songName} By ${artistName}`;
+function previewSong(artist, song){
+    songSelection.innerHTML = '';
+    let newSong = document.createElement("h5");
+    newSong.innerText = `${song} By ${artist}`;
     songSelection.appendChild(newSong);
 }
 
@@ -87,7 +72,7 @@ function searchgrid(searchData){
         songTitle.innerText = result.trackName;
         cardBody.appendChild(songTitle);
         //Artist Name
-        let artist = document.createElement("p");
+        let artist = document.createElement("h6");
         artist.classList.add("card-text");
         artist.innerText = result.artistName;
         cardBody.appendChild(artist);
@@ -98,19 +83,3 @@ function searchgrid(searchData){
         cardBody.appendChild(songUrl)
     }
 }
-
-
-// let url = `https://itunes.apple.com/search?term=shakira`;
-
-//     fetch(url, {
-//     method: 'GET',
-//     headers: { 'Content-Type': 'application/json' },
-//     })
-//     .then(function (response) {
-//     return response.json()
-//     })
-//     .then(function (data) {
-//         console.log('You have been successfully subscribed', data.results)
-//         // previewSong(data)
-//         searchgrid(data.results)
-//     })
