@@ -2,15 +2,10 @@
 let songSelection = document.querySelector('#song-preview');
 let songPreview = document.querySelector('#song-preview-audio')
 let searchResult = document.querySelector('#search-result')
+let previewSection = document.querySelector('#preview-section')
 let searchInput = document.querySelector('#song-search-input')
 let searchBtn = document.querySelector('#search-btn')
-
-
-
-// TO DO LIST
-// ========================================
-// -Need to add click event listener to each search result element like I did for each calculator GamepadButton. This function will tell the page to change the song preview to the clicked song.
-//
+let albumImage = document.querySelector('#albumImg')
 
 searchBtn.addEventListener('click', (event) => {
     event.preventDefault();
@@ -31,19 +26,35 @@ searchBtn.addEventListener('click', (event) => {
 
 searchResult.addEventListener("click", function(event){
     if(event.target.parentElement.classList.contains('card-body')){
-        songPreview.src = event.target.parentElement.children[2].innerHTML
+        let albumImg = (event.target.parentElement.parentElement.children[0].src)
+        let audioUrl = event.target.parentElement.children[2].innerHTML
         let artist = event.target.parentElement.children[1].innerHTML
         let song = event.target.parentElement.children[0].innerHTML
-        previewSong(artist, song)
+        previewSong(audioUrl,artist, song, albumImg)
+    } else if(event.target.parentElement.classList.contains('card')) {
+        let albumImg = (event.target.parentElement.children[0].src)
+        let audioUrl = event.target.parentElement.children[1].children[2].innerHTML
+        let artist = event.target.parentElement.children[1].children[1].innerHTML
+        let song = event.target.parentElement.children[1].children[0].innerHTML
+        previewSong(audioUrl, artist, song, albumImg)
     }
 })
 
 //defualt Song Preview
-function previewSong(artist, song){
+function previewSong(audioUrl, artist, song, albumImg){
     songSelection.innerHTML = '';
+    songPreview.style.visibility="visible"
+    songPreview.src = audioUrl;
+    albumImage.src = albumImg
+
     let newSong = document.createElement("h5");
+    newSong.classList.add("song-title");
     newSong.innerText = `${song} By ${artist}`;
     songSelection.appendChild(newSong);
+
+    previewSection.style.display="flex"
+    console.log(previewSection)
+    songPreview.play();
 }
 
 //Organized Search Grid

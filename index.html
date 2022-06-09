@@ -14,27 +14,23 @@
   <title>Music Search</title>
 </head>
 <body>
-  <header>
-    <h1>Really Awesome Music Site</h1>
+  <header id="header">
+    <img src="./Pearlogo2.png" alt = "pear logo" id="logo">
+    <h1>myTunes</h1>
   </header>
   <div class="top-shelf">
-    <!-- Song Preview -->
-    <div class="text-center">
-      <audio controls id="song-preview-audio"></audio>
-      <div id="song-preview" class="text-center"></div>
-    </div>
     <!-- Song Search Bar -->
     <div id="song-search">
       <form>
         <div class="container">
           <div class="row justify-content-center text">
             <div class="col-11">
-                <label for="song-search-input" class="form-label">Search for Artist or Song</label>
-                <input type="search" class="form-control" id="song-search-input" aria-describedby="song search input" required>
+              <label for="song-search-input" class="form-label">Search for Artist or Song</label>
+              <input type="search" class="form-control" id="song-search-input" aria-describedby="song search input" required>
             </div>
             <div class="col-1">
-              <label class="form-label" style="color: #272727">Blank</label>
-              <button type="submit" class="btn btn-primary" id="search-btn">Submit</button>
+              <label class="form-label" style="visibility:hidden">Blank</label>
+              <button type="submit" class="btn btn-light" id="search-btn">Submit</button>
             </div>
           </div>
         </div>
@@ -45,6 +41,12 @@
   <div class="result-section">
     <div id="search-result">
     </div>
+  </div>
+  <!-- Song Preview -->
+  <div class="text-center" id="preview-section">
+    <img id="albumImg">
+    <audio controls id="song-preview-audio"></audio>
+    <div id="song-preview" class="text-center"></div>
   </div>
 </body>
 </html>
